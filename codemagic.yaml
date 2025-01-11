@@ -1,0 +1,28 @@
+workflows:
+  android-apk:
+    name: Build Android APK for Capacitor Project
+    environment:
+      vars:
+        CAPACITOR_ANDROID_PATH: android
+      flutter: stable # Not required but Codemagic includes this by default
+      android: latest
+    scripts:
+      # Install dependencies
+      - name: Install Dependencies
+        script: npm install
+
+      # Build Next.js static files
+      - name: Build Next.js app
+        script: npx next build && npx next export
+
+      # Copy static files to Capacitor's web directory
+      - name: Copy static files to Capacitor's web directory
+        script: npx cap copy
+
+      # Build the Android APK using Gradle
+      - name: Build Android APK
+        script: |
+          cd $CAPACITOR_ANDROID_PATH
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/apk/release/*.apk
