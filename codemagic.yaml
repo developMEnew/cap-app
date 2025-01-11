@@ -22,9 +22,6 @@ workflows:
         script: |
           cd $CAPACITOR_ANDROID_PATH
           ./gradlew assembleRelease
+
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
-
-    # Define the android SDK version
-    android:
-      gradle: latest
