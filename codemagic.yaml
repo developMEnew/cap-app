@@ -4,8 +4,6 @@ workflows:
     environment:
       vars:
         CAPACITOR_ANDROID_PATH: android
-      flutter: stable # Not required but Codemagic includes this by default
-      android: latest
     scripts:
       # Install dependencies
       - name: Install Dependencies
@@ -26,3 +24,7 @@ workflows:
           ./gradlew assembleRelease
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
+
+    # Define the android SDK version
+    android:
+      gradle: latest
